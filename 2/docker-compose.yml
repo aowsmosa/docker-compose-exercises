@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mysql
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DB: test
+      MYSQL_USER: aows
+      MYSQL_PASSWORD: aows
+    restart: always
+
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: test
+      MYSQL_USER: aows
+      MYSQL_PASSWORD: aows
+      MYSQL_ROOT_PASSWORD: aows
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  mysql_data:
