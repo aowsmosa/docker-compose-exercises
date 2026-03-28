@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head><title>Docker Manager</title></head>
+<body>
+    <h1>Docker Container Manager</h1>
+    <a href="/create">Create Container</a>
+    <h2>Existing Containers:</h2>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        {% for container in containers %}
+        <tr>
+            <td>{{ container.name }}</td>
+            <td>{{ container.image.tags }}</td>
+            <td>{{ container.status }}</td>
+            <td>
+                <a href="/delete/{{ container.id }}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
